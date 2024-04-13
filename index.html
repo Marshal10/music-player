@@ -9,6 +9,31 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="player-container">
+        <div class="img-container">
+            <img src="img/music-2.jpg" alt="Album Art">
+        </div>
+        <div class="text-container">
+            <div class="song" id="song">On & On</div>
+            <div class="artist" id="artist">Cartoon x Jeja</div>
+        </div>
+        <div class="audio-container">
+            <audio src="music/music-2.mp3" id="audio"></audio>
+        </div>
+        <div class="progress-container">
+            <div class="progress" id="progress"></div>
+            <div class="duration-wrapper">
+                <span id="current-time">0:00</span>
+                <span id="end-time">3:28</span>
+            </div>
+        </div>
+        <div class="audio-controls">
+            <i class="fa-solid fa-backward" id="prev" title="Previous"></i>
+            <i class="fa-solid fa-play main-btn" id="play" title="Play"></i>
+            <i class="fa-solid fa-forward" id="next" title="Next"></i>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/27af78d089.js" crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </body>
 </html>
