@@ -59,12 +59,19 @@ function nextSong(){
 }
 
 function prevSong(){
-    songIndex--
-    if (songIndex < 0){
-        songIndex=songs.length -1
+    if (audioEl.currentTime > 5 ){
+        audioEl.pause();
+        audioEl.currentTime = 0;
+        audioEl.play();      
+    }else{
+        songIndex--
+        if (songIndex < 0){
+            songIndex=songs.length -1
+        }
+        loadSong(songs[songIndex])
+        playSong()
     }
-    loadSong(songs[songIndex])
-    playSong()
+    
 }
 
 play.addEventListener("click", () => {
@@ -80,6 +87,7 @@ function loadSong(song){
 }
 
 function updateProgressBar(e){
+    // console.log(e)
     const {duration,currentTime}=e.srcElement
     let progressPercentage=(currentTime/duration)*100
     progressBar.style.width=`${progressPercentage}%`
@@ -107,9 +115,11 @@ function gotoTimestamp(e){
     const progressWidth=e.offsetX
     const { duration }=audioEl
     audioEl.currentTime=(progressWidth/width)*duration
+    return (progressWidth/width)*duration
 }
 
 next.addEventListener('click',nextSong)
 prev.addEventListener('click',prevSong)
 audioEl.addEventListener('timeupdate',updateProgressBar)
 progressContainer.addEventListener('click',gotoTimestamp)
+audioEl.addEventListener('ended',nextSong)
