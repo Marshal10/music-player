@@ -7,6 +7,8 @@ const songName=document.getElementById('song')
 const artist=document.getElementById('artist')
 const progressContainer=document.querySelector('.progress-container')
 const progressBar=document.getElementById('progress')
+const songDuration=document.getElementById('duration')
+const songCurrTime=document.getElementById('current-time')
 
 const songs=[
     {
@@ -77,14 +79,37 @@ function loadSong(song){
     artist.textContent=song.artist
 }
 
-loadSong(songs[songIndex])
-
 function updateProgressBar(e){
     const {duration,currentTime}=e.srcElement
     let progressPercentage=(currentTime/duration)*100
     progressBar.style.width=`${progressPercentage}%`
+    const durationMinutes=Math.floor(duration/60)
+    let durationSecs=Math.floor(duration%60)
+    if (durationSecs <10 ){
+        durationSecs=`0${durationSecs}`
+    }
+    if (durationSecs){
+        songDuration.textContent=`${durationMinutes}:${durationSecs}`
+    }
+
+    const currentMinutes=Math.floor(currentTime/60)
+    let currentSecs=Math.floor(currentTime%60)
+    if (currentSecs <10 ){
+        currentSecs=`0${currentSecs}`
+    }
+    if (currentSecs){
+        songCurrTime.textContent=`${currentMinutes}:${currentSecs}`
+    }
+}
+
+function gotoTimestamp(e){
+    const width=this.clientWidth
+    const progressWidth=e.offsetX
+    const { duration }=audioEl
+    audioEl.currentTime=(progressWidth/width)*duration
 }
 
 next.addEventListener('click',nextSong)
 prev.addEventListener('click',prevSong)
 audioEl.addEventListener('timeupdate',updateProgressBar)
+progressContainer.addEventListener('click',gotoTimestamp)
