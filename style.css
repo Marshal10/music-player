@@ -96,6 +96,10 @@ img{
   user-select: none;
 }
 
+.fa-solid:hover{
+  filter: brightness(80%);
+}
+
 .main-btn{
   font-size: 40px;
 }
