@@ -5,6 +5,8 @@ const next=document.getElementById("next")
 const img=document.querySelector('img')
 const songName=document.getElementById('song')
 const artist=document.getElementById('artist')
+const progressContainer=document.querySelector('.progress-container')
+const progressBar=document.getElementById('progress')
 
 const songs=[
     {
@@ -67,8 +69,6 @@ play.addEventListener("click", () => {
   isPlaying ? pauseSong() : playSong();
 });
 
-next.addEventListener('click',nextSong)
-prev.addEventListener('click',prevSong)
 
 function loadSong(song){
     img.src=`img/${song.name}.jpg`
@@ -78,3 +78,13 @@ function loadSong(song){
 }
 
 loadSong(songs[songIndex])
+
+function updateProgressBar(e){
+    const {duration,currentTime}=e.srcElement
+    let progressPercentage=(currentTime/duration)*100
+    progressBar.style.width=`${progressPercentage}%`
+}
+
+next.addEventListener('click',nextSong)
+prev.addEventListener('click',prevSong)
+audioEl.addEventListener('timeupdate',updateProgressBar)
